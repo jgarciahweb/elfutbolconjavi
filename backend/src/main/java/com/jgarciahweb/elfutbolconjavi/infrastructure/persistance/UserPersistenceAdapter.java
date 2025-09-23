@@ -15,7 +15,7 @@ public class UserPersistenceAdapter implements SaveUserPort {
 
     @Override
     public User save(User user) {
-        if (userRepository.exitsByEmail(user.getEmail())) {
+        if (userRepository.existsByEmail(user.getEmail())) {
             throw new RuntimeException("El email ya está registrado");
         }
 
