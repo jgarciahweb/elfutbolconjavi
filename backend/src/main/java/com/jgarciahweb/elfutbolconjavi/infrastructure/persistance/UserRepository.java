@@ -1,4 +1,7 @@
 package com.jgarciahweb.elfutbolconjavi.infrastructure.persistance;
 
-public interface UserRepository {
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+public interface UserRepository extends MongoRepository<UserEntity, String> {
+    boolean exitsByEmail(String email);
 }
