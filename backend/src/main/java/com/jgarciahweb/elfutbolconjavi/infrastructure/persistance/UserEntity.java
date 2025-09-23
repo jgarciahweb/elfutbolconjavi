@@ -1,7 +1,7 @@
 package com.jgarciahweb.elfutbolconjavi.infrastructure.persistance;
 
-import jakarta.persistence.Id;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
