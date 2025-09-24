@@ -18,10 +18,13 @@ public class RegisterUserService implements RegisterUserUseCase {
 
     @Override
     public User registerUser(String username, String email, String password) {
-        String id = UUID.randomUUID().toString();
-
-        User user = new User(id, username, email, password);
-
-        return saveUserPort.save(user);
+        return saveUserPort.save(
+                User.builder()
+                        .id(UUID.randomUUID().toString())
+                        .username(username)
+                        .email(email)
+                        .password(password)
+                        .build()
+        );
     }
 }
