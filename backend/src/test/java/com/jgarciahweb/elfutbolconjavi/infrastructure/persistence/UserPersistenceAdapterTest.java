@@ -7,6 +7,8 @@ import com.jgarciahweb.elfutbolconjavi.infrastructure.persistance.UserRepository
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -23,7 +25,7 @@ class UserPersistenceAdapterTest {
 
     @Test
     void shouldSaveUserIfEmailNotExists() {
-        User user = new User("1", "javi", "test@test.com", "123");
+        User user = new User("1", "javi", "test@test.com", "123", LocalDate.now(), true, false);
 
         when(userRepository.existsByEmail("test@test.com")).thenReturn(false);
         when(userRepository.save(any(UserEntity.class))).thenReturn(new UserEntity());
@@ -36,7 +38,7 @@ class UserPersistenceAdapterTest {
 
     @Test
     void shouldThrowExceptionIfEmailExists() {
-        User user = new User("1", "javi", "test@test.com", "123");
+        User user = new User("1", "javi", "test@test.com", "123", LocalDate.now(), true, false);
 
         when(userRepository.existsByEmail("test@test.com")).thenReturn(true);
 

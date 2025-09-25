@@ -2,6 +2,8 @@ package com.jgarciahweb.elfutbolconjavi.domain;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserTest {
@@ -20,7 +22,7 @@ class UserTest {
 
     @Test
     void shouldUseAllArgsConstructor() {
-        User user = new User("1", "javi", "test@test.com", "123");
+        User user = new User("1", "javi", "test@test.com", "123", LocalDate.now(), true, false);
         assertEquals("test@test.com", user.getEmail());
     }
 }

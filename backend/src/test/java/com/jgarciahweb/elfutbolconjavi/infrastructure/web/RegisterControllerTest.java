@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -28,9 +30,11 @@ class RegisterControllerTest {
         request.setUsername("javi");
         request.setEmail("test@test.com");
         request.setPassword("123");
+        request.setBirthday(LocalDate.now());
+        request.setAcceptedCookies(true);
 
-        when(useCase.registerUser("javi", "test@test.com", "123"))
-                .thenReturn(new User("1", "javi", "test@test.com", "123"));
+        when(useCase.registerUser(request))
+                .thenReturn(new User("1", "javi", "test@test.com", "123", LocalDate.now(), true, false));
 
         ResponseEntity<RegisterResponseDTO> response = controller.register(request);
 
@@ -44,8 +48,10 @@ class RegisterControllerTest {
         request.setUsername("javi");
         request.setEmail("test@test.com");
         request.setPassword("123");
+        request.setBirthday(LocalDate.now());
+        request.setAcceptedCookies(true);
 
-        when(useCase.registerUser(any(), any(), any())).thenThrow(new RuntimeException("Error"));
+        when(useCase.registerUser(any())).thenThrow(new RuntimeException("Error"));
 
         ResponseEntity<RegisterResponseDTO> response = controller.register(request);
 

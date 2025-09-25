@@ -3,6 +3,7 @@ package com.jgarciahweb.elfutbolconjavi.application.service;
 import com.jgarciahweb.elfutbolconjavi.application.port.in.RegisterUserUseCase;
 import com.jgarciahweb.elfutbolconjavi.application.port.out.SaveUserPort;
 import com.jgarciahweb.elfutbolconjavi.domain.User;
+import com.jgarciahweb.elfutbolconjavi.infrastructure.web.dto.RegisterRequestDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -17,13 +18,16 @@ public class RegisterUserService implements RegisterUserUseCase {
     }
 
     @Override
-    public User registerUser(String username, String email, String password) {
+    public User registerUser(RegisterRequestDTO request) {
         return saveUserPort.save(
                 User.builder()
                         .id(UUID.randomUUID().toString())
-                        .username(username)
-                        .email(email)
-                        .password(password)
+                        .username(request.getUsername())
+                        .email(request.getEmail())
+                        .password(request.getPassword())
+                        .birthday(request.getBirthday())
+                        .isAcceptedCookies(request.isAcceptedCookies())
+                        .isVerified(false)
                         .build()
         );
     }

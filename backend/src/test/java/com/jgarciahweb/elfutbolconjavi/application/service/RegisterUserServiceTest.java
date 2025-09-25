@@ -2,9 +2,12 @@ package com.jgarciahweb.elfutbolconjavi.application.service;
 
 import com.jgarciahweb.elfutbolconjavi.application.port.out.SaveUserPort;
 import com.jgarciahweb.elfutbolconjavi.domain.User;
+import com.jgarciahweb.elfutbolconjavi.infrastructure.web.dto.RegisterRequestDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -22,11 +25,21 @@ class RegisterUserServiceTest {
 
     @Test
     void shouldRegisterUserSuccessfully() {
-        User expected = new User("123", "javi", "javi@test.com", "pass");
+        var localDate = LocalDate.now();
+
+        User expected = new User("123", "javi", "javi@test.com", "pass", localDate, true, false );
 
         when(saveUserPort.save(any(User.class))).thenReturn(expected);
 
-        User result = service.registerUser("javi", "javi@test.com", "pass");
+        RegisterRequestDTO request = new RegisterRequestDTO();
+        request.setUsername("javi");
+        request.setEmail("javi@test.com");
+        request.setPassword("pass");
+        request.setBirthday(localDate);
+        request.setAcceptedCookies(true);
+
+        // when
+        User result = service.registerUser(request);
 
         assertEquals("javi@test.com", result.getEmail());
         verify(saveUserPort, times(1)).save(any(User.class));

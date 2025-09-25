@@ -4,6 +4,8 @@ import com.jgarciahweb.elfutbolconjavi.application.port.out.SaveUserPort;
 import com.jgarciahweb.elfutbolconjavi.domain.User;
 import org.springframework.stereotype.Component;
 
+import java.time.ZoneOffset;
+
 @Component
 public class UserPersistenceAdapter implements SaveUserPort {
 
@@ -24,6 +26,9 @@ public class UserPersistenceAdapter implements SaveUserPort {
         entity.setUsername(user.getUsername());
         entity.setEmail(user.getEmail());
         entity.setPassword(user.getPassword());
+        entity.setBirthdate(user.getBirthday().atStartOfDay(ZoneOffset.UTC).toInstant());
+        entity.setAcceptedCookies(user.isAcceptedCookies());
+        entity.setVerified(user.isVerified());
 
         userRepository.save(entity);
         return user;

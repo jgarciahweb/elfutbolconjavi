@@ -44,11 +44,7 @@ public class RegisterController {
     @PostMapping("/register")
     public ResponseEntity<RegisterResponseDTO> register(@RequestBody RegisterRequestDTO request) {
         try {
-            User user = registerUserUseCase.registerUser(
-                    request.getUsername(),
-                    request.getEmail(),
-                    request.getPassword()
-            );
+            User user = registerUserUseCase.registerUser(request);
 
             return ResponseEntity.ok(new RegisterResponseDTO(true, "Usuario registrado con éxito"));
         } catch (Exception e) {

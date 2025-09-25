@@ -1,7 +1,8 @@
 package com.jgarciahweb.elfutbolconjavi.application.port.in;
 
 import com.jgarciahweb.elfutbolconjavi.domain.User;
+import com.jgarciahweb.elfutbolconjavi.infrastructure.web.dto.RegisterRequestDTO;
 
 public interface RegisterUserUseCase {
-    User registerUser(String username, String email, String password);
+    User registerUser(RegisterRequestDTO request);
 }
