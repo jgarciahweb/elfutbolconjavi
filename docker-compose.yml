@@ -1,12 +1,12 @@
 version: "3.8"
 
 services:
-  # frontend:
-  #   build: ./frontend
-  #   ports:
-  #     - "4200:80"
-  #   depends_on:
-  #     - backend
+  frontend:
+    build: ./frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
 
   backend:
     build: ./backend
@@ -29,7 +29,6 @@ services:
 
   mongo-express:
     image: mongo-express:1.0.0-alpha
-    restart: always
     ports:
       - "8081:8081"
     environment:
