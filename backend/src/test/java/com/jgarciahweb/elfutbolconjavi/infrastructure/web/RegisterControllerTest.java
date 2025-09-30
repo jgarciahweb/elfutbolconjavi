@@ -32,10 +32,9 @@ class RegisterControllerTest {
         request.setEmail("test@test.com");
         request.setPassword("123");
         request.setBirthday(LocalDate.now());
-        request.setAcceptedCookies(true);
 
         when(useCase.registerUser(request))
-                .thenReturn(new User("1", "javi", "test@test.com", "123", RoleEnum.NORMAL, LocalDate.now(), true, false));
+                .thenReturn(new User("1", "javi", "test@test.com", "123", RoleEnum.NORMAL, LocalDate.now(), false, false));
 
         ResponseEntity<RegisterResponseDTO> response = controller.register(request);
 
@@ -51,7 +50,6 @@ class RegisterControllerTest {
         request.setEmail("test@test.com");
         request.setPassword("123");
         request.setBirthday(LocalDate.now());
-        request.setAcceptedCookies(true);
 
         when(useCase.registerUser(any())).thenThrow(new RuntimeException("Error"));
 

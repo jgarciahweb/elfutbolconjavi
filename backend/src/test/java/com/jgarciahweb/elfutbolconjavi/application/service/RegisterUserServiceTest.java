@@ -37,7 +37,6 @@ class RegisterUserServiceTest {
         request.setEmail("javi@test.com");
         request.setPassword("pass");
         request.setBirthday(localDate);
-        request.setAcceptedCookies(true);
 
         // when
         User result = service.registerUser(request);
