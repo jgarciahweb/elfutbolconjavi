@@ -7,6 +7,7 @@ import com.jgarciahweb.elfutbolconjavi.infrastructure.web.dto.RegisterRequestDTO
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 
@@ -16,12 +17,14 @@ import static org.mockito.Mockito.*;
 class RegisterUserServiceTest {
 
     private SaveUserPort saveUserPort;
+    private PasswordEncoder passwordEncoder;
     private RegisterUserService service;
 
     @BeforeEach
     void setUp() {
         saveUserPort = Mockito.mock(SaveUserPort.class);
-        service = new RegisterUserService(saveUserPort);
+        passwordEncoder = Mockito.mock(PasswordEncoder.class);
+        service = new RegisterUserService(saveUserPort, passwordEncoder);
     }
 
     @Test
