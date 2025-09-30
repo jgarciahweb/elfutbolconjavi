@@ -28,7 +28,7 @@ public class RegisterUserService implements RegisterUserUseCase {
                         .password(request.getPassword())
                         .birthday(request.getBirthday())
                         .role(RoleEnum.NORMAL)
-                        .isAcceptedCookies(request.isAcceptedCookies())
+                        .isAcceptedCookies(false)
                         .isVerified(false)
                         .build()
         );

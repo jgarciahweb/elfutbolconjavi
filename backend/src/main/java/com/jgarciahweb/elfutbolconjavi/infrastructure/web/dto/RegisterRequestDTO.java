@@ -10,5 +10,4 @@ public class RegisterRequestDTO {
     private String email;
     private String password;
     private LocalDate birthday;
-    private boolean isAcceptedCookies;
 }
