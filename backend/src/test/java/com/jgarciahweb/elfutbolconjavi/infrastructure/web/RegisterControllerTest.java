@@ -1,6 +1,7 @@
 package com.jgarciahweb.elfutbolconjavi.infrastructure.web;
 
 import com.jgarciahweb.elfutbolconjavi.application.port.in.RegisterUserUseCase;
+import com.jgarciahweb.elfutbolconjavi.domain.RoleEnum;
 import com.jgarciahweb.elfutbolconjavi.domain.User;
 import com.jgarciahweb.elfutbolconjavi.infrastructure.web.dto.RegisterRequestDTO;
 import com.jgarciahweb.elfutbolconjavi.infrastructure.web.dto.RegisterResponseDTO;
@@ -34,10 +35,11 @@ class RegisterControllerTest {
         request.setAcceptedCookies(true);
 
         when(useCase.registerUser(request))
-                .thenReturn(new User("1", "javi", "test@test.com", "123", LocalDate.now(), true, false));
+                .thenReturn(new User("1", "javi", "test@test.com", "123", RoleEnum.NORMAL, LocalDate.now(), true, false));
 
         ResponseEntity<RegisterResponseDTO> response = controller.register(request);
 
+        assertNotNull(response.getBody());
         assertTrue(response.getBody().isSuccess());
         assertEquals("Usuario registrado con éxito", response.getBody().getMessage());
     }
@@ -55,6 +57,7 @@ class RegisterControllerTest {
 
         ResponseEntity<RegisterResponseDTO> response = controller.register(request);
 
+        assertNotNull(response.getBody());
         assertFalse(response.getBody().isSuccess());
         assertEquals("Error", response.getBody().getMessage());
     }

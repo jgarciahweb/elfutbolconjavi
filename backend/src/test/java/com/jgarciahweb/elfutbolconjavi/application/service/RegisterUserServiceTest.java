@@ -1,6 +1,7 @@
 package com.jgarciahweb.elfutbolconjavi.application.service;
 
 import com.jgarciahweb.elfutbolconjavi.application.port.out.SaveUserPort;
+import com.jgarciahweb.elfutbolconjavi.domain.RoleEnum;
 import com.jgarciahweb.elfutbolconjavi.domain.User;
 import com.jgarciahweb.elfutbolconjavi.infrastructure.web.dto.RegisterRequestDTO;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +28,7 @@ class RegisterUserServiceTest {
     void shouldRegisterUserSuccessfully() {
         var localDate = LocalDate.now();
 
-        User expected = new User("123", "javi", "javi@test.com", "pass", localDate, true, false );
+        User expected = new User("123", "javi", "javi@test.com", "pass", RoleEnum.NORMAL, localDate, true, false );
 
         when(saveUserPort.save(any(User.class))).thenReturn(expected);
 

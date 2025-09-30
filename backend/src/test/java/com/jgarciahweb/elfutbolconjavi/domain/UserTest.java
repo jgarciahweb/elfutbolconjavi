@@ -22,7 +22,7 @@ class UserTest {
 
     @Test
     void shouldUseAllArgsConstructor() {
-        User user = new User("1", "javi", "test@test.com", "123", LocalDate.now(), true, false);
+        User user = new User("1", "javi", "test@test.com", "123", RoleEnum.NORMAL, LocalDate.now(), true, false);
         assertEquals("test@test.com", user.getEmail());
     }
 }

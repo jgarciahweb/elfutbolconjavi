@@ -1,5 +1,6 @@
 package com.jgarciahweb.elfutbolconjavi.infrastructure.persistence;
 
+import com.jgarciahweb.elfutbolconjavi.domain.RoleEnum;
 import com.jgarciahweb.elfutbolconjavi.domain.User;
 import com.jgarciahweb.elfutbolconjavi.infrastructure.persistance.UserEntity;
 import com.jgarciahweb.elfutbolconjavi.infrastructure.persistance.UserPersistenceAdapter;
@@ -25,7 +26,7 @@ class UserPersistenceAdapterTest {
 
     @Test
     void shouldSaveUserIfEmailNotExists() {
-        User user = new User("1", "javi", "test@test.com", "123", LocalDate.now(), true, false);
+        User user = new User("1", "javi", "test@test.com", "123", RoleEnum.NORMAL, LocalDate.now(), true, false);
 
         when(userRepository.existsByEmail("test@test.com")).thenReturn(false);
         when(userRepository.save(any(UserEntity.class))).thenReturn(new UserEntity());
@@ -38,7 +39,7 @@ class UserPersistenceAdapterTest {
 
     @Test
     void shouldThrowExceptionIfEmailExists() {
-        User user = new User("1", "javi", "test@test.com", "123", LocalDate.now(), true, false);
+        User user = new User("1", "javi", "test@test.com", "123", RoleEnum.NORMAL, LocalDate.now(), true, false);
 
         when(userRepository.existsByEmail("test@test.com")).thenReturn(true);
 

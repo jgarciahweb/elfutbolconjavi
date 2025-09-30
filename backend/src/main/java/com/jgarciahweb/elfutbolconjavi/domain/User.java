@@ -17,6 +17,7 @@ public class User {
     private String username;
     private String email;
     private String password;
+    private RoleEnum role;
     private LocalDate birthday;
     private boolean isAcceptedCookies;
     private boolean isVerified;
