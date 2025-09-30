@@ -9,7 +9,7 @@
       <div>
         <label for="username" class="block text-sm font-medium text-gray-700">Nombre de usuario</label>
         <input id="username" type="text" formControlName="username"
-               class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+               class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-[#003b01] focus:border-[#003b01]" />
         <p *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched"
            class="text-red-500 text-xs mt-1">
           El nombre de usuario es obligatorio (mínimo 3 caracteres).
@@ -20,7 +20,7 @@
       <div>
         <label for="email" class="block text-sm font-medium text-gray-700">Correo electrónico</label>
         <input id="email" type="email" formControlName="email"
-               class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+               class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-[#003b01] focus:border-[#003b01]" />
         <p *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
            class="text-red-500 text-xs mt-1">
           Introduce un email válido.
@@ -31,7 +31,7 @@
       <div class="relative">
         <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
         <input id="password" type="password" formControlName="password" (input)="checkPasswordStrength()"
-               class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+               class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-[#003b01] focus:border-[#003b01]" />
 
         <!-- Barra de fuerza de contraseña -->
         <div class="mt-2 h-2 w-full bg-gray-200 rounded">
@@ -48,7 +48,7 @@
       <div class="relative mt-4">
         <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirmar contraseña</label>
         <input id="confirmPassword" type="password" formControlName="confirmPassword" (input)="checkPasswordsMatch()"
-               class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+               class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-[#003b01] focus:border-[#003b01]" />
 
         <!-- Mensaje de error si no coinciden -->
         <p *ngIf="registerForm.get('confirmPassword')?.touched && !passwordsMatch" class="text-red-500 text-xs mt-1">
@@ -58,10 +58,10 @@
 
       <!-- Birthdate -->
       <div>
-        <label for="birthdate" class="block text-sm font-medium text-gray-700">Fecha de nacimiento</label>
-        <input id="birthdate" type="date" formControlName="birthdate"
-               class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" />
-        <p *ngIf="registerForm.get('birthdate')?.invalid && registerForm.get('birthdate')?.touched"
+        <label for="birthday" class="block text-sm font-medium text-gray-700">Fecha de nacimiento</label>
+        <input id="birthday" type="date" formControlName="birthday"
+               class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-[#003b01] focus:border-[#003b01]" />
+        <p *ngIf="registerForm.get('birthday')?.invalid && registerForm.get('birthday')?.touched"
            class="text-red-500 text-xs mt-1">
           La fecha de nacimiento es obligatoria.
         </p>
@@ -87,7 +87,7 @@
       <!-- Submit -->
       <button type="submit"
               [disabled]="registerForm.invalid"
-              class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-400">
+              class="w-full bg-[#003b01] text-white py-2 px-4 rounded-lg font-semibold hover:bg-[#003b15] disabled:bg-gray-400">
         Registrarse
       </button>
     </form>

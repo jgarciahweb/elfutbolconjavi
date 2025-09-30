@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from "ngx-toastr";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: 'app-register',
@@ -17,13 +18,17 @@ export class RegisterComponent {
   passwordStrengthClass = '';
   passwordsMatch = true;
 
-  constructor(private fb: FormBuilder, private toastr: ToastrService) {
+  constructor(
+    private fb: FormBuilder,
+    private toastr: ToastrService,
+    private authService: AuthService
+  ) {
     this.registerForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]],
-      birthdate: ['', Validators.required],
+      birthday: ['', Validators.required],
       isAcceptedCookies: [false, Validators.requiredTrue]
     });
   }
@@ -35,11 +40,20 @@ export class RegisterComponent {
 
     if (this.registerForm.valid && this.passwordStrengthText !== 'Débil' && this.passwordsMatch) {
       console.log("Datos enviados:", this.registerForm.value);
-      // Aquí harías un POST al backend -> /api/register
+
+      this.authService.register(this.registerForm.value).subscribe({
+        next: (res) => {
+          this.toastr.success('Registrado correctamente', 'Éxito');
+          console.log('Respuesta del backend:', res);
+        },
+        error: (err) => {
+          this.toastr.error('Error al registrar', 'Error');
+          console.error(err);
+        }
+      });
     } else {
       console.log("Formulario inválido");
 
-      // Marcamos todos los controles como touched para que se muestren los errores
       Object.values(this.registerForm.controls).forEach(control => {
         control.markAsTouched();
       });
