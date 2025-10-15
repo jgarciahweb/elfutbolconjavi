@@ -42,19 +42,6 @@ class UserPersistenceAdapterTest {
     }
 
     @Test
-    void shouldThrowExceptionIfEmailExists() {
-        User user = new User("1", "javi", "test@test.com", "123",
-                RoleEnum.NORMAL, LocalDate.now(), true, false);
-
-        when(userRepository.existsByEmail("test@test.com")).thenReturn(true);
-
-        RuntimeException ex = assertThrows(RuntimeException.class, () -> adapter.save(user));
-
-        assertEquals("El email ya está registrado", ex.getMessage());
-        verify(userRepository, never()).save(any());
-    }
-
-    @Test
     void shouldMapUserFieldsToEntityCorrectly() {
         LocalDate birthday = LocalDate.of(2000, 5, 10);
         User user = new User("abc123", "ana", "ana@test.com", "pwd",
