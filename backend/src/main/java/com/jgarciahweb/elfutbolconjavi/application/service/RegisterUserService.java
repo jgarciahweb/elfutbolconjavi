@@ -1,9 +1,10 @@
 package com.jgarciahweb.elfutbolconjavi.application.service;
 
 import com.jgarciahweb.elfutbolconjavi.application.port.in.RegisterUserUseCase;
-import com.jgarciahweb.elfutbolconjavi.application.port.out.SaveUserPort;
+import com.jgarciahweb.elfutbolconjavi.application.port.out.UserPort;
 import com.jgarciahweb.elfutbolconjavi.domain.RoleEnum;
 import com.jgarciahweb.elfutbolconjavi.domain.User;
+import com.jgarciahweb.elfutbolconjavi.domain.exception.UserAlreadyExistsException;
 import com.jgarciahweb.elfutbolconjavi.infrastructure.web.dto.RegisterRequestDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,12 +16,23 @@ import java.util.UUID;
 @AllArgsConstructor
 public class RegisterUserService implements RegisterUserUseCase {
 
-    private final SaveUserPort saveUserPort;
+    private final UserPort userPort;
     private final PasswordEncoder passwordEncoder;
 
     @Override
     public User registerUser(RegisterRequestDTO request) {
-        return saveUserPort.save(
+
+        userPort.findByEmail(request.getEmail())
+                .ifPresent(user -> {
+                    throw new UserAlreadyExistsException("Este email ya está registrado");
+                });
+
+        userPort.findByUsername(request.getUsername())
+                .ifPresent(user -> {
+                    throw new UserAlreadyExistsException("El nombre de usuario ya existe");
+                });
+
+        return userPort.save(
                 User.builder()
                         .id(generateShortId())
                         .username(request.getUsername())
