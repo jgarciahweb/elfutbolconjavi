@@ -16,17 +16,17 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class RegisterUserServiceTest {
+class UserServiceTest {
 
     private UserPort userPort;
     private PasswordEncoder passwordEncoder;
-    private RegisterUserService service;
+    private UserService service;
 
     @BeforeEach
     void setUp() {
         userPort = Mockito.mock(UserPort.class);
         passwordEncoder = Mockito.mock(PasswordEncoder.class);
-        service = new RegisterUserService(userPort, passwordEncoder);
+        service = new UserService(userPort, passwordEncoder);
     }
 
     @Test

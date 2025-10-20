@@ -1,6 +1,6 @@
 package com.jgarciahweb.elfutbolconjavi.infrastructure.web;
 
-import com.jgarciahweb.elfutbolconjavi.application.port.in.RegisterUserUseCase;
+import com.jgarciahweb.elfutbolconjavi.application.port.in.UserUseCase;
 import com.jgarciahweb.elfutbolconjavi.domain.RoleEnum;
 import com.jgarciahweb.elfutbolconjavi.domain.User;
 import com.jgarciahweb.elfutbolconjavi.infrastructure.web.dto.RegisterRequestDTO;
@@ -14,15 +14,15 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class RegisterControllerTest {
+class UserControllerTest {
 
-    private RegisterUserUseCase useCase;
-    private RegisterController controller;
+    private UserUseCase useCase;
+    private UserController controller;
 
     @BeforeEach
     void setUp() {
-        useCase = mock(RegisterUserUseCase.class);
-        controller = new RegisterController(useCase);
+        useCase = mock(UserUseCase.class);
+        controller = new UserController(useCase);
     }
 
     @Test

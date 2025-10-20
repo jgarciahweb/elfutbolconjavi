@@ -1,6 +1,6 @@
 package com.jgarciahweb.elfutbolconjavi.application.service;
 
-import com.jgarciahweb.elfutbolconjavi.application.port.in.RegisterUserUseCase;
+import com.jgarciahweb.elfutbolconjavi.application.port.in.UserUseCase;
 import com.jgarciahweb.elfutbolconjavi.application.port.out.UserPort;
 import com.jgarciahweb.elfutbolconjavi.domain.RoleEnum;
 import com.jgarciahweb.elfutbolconjavi.domain.User;
@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-public class RegisterUserService implements RegisterUserUseCase {
+public class UserService implements UserUseCase {
 
     private final UserPort userPort;
     private final PasswordEncoder passwordEncoder;
