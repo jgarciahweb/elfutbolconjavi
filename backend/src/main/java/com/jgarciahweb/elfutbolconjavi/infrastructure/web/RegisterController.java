@@ -1,7 +1,6 @@
 package com.jgarciahweb.elfutbolconjavi.infrastructure.web;
 
 import com.jgarciahweb.elfutbolconjavi.application.port.in.RegisterUserUseCase;
-import com.jgarciahweb.elfutbolconjavi.domain.User;
 import com.jgarciahweb.elfutbolconjavi.infrastructure.web.dto.RegisterRequestDTO;
 import com.jgarciahweb.elfutbolconjavi.infrastructure.web.dto.RegisterResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -44,8 +43,7 @@ public class RegisterController {
     @PostMapping("/register")
     public ResponseEntity<RegisterResponseDTO> register(@RequestBody RegisterRequestDTO request) {
         try {
-            User user = registerUserUseCase.registerUser(request);
-
+            registerUserUseCase.registerUser(request);
             return ResponseEntity.ok(new RegisterResponseDTO(true, "Usuario registrado con éxito"));
         } catch (Exception e) {
             return ResponseEntity.badRequest()
