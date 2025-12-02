@@ -14,13 +14,15 @@ public class RegisterUserValidator {
     private final UserRepository userRepository;
 
     public Mono<Void> validate(RegisterUserCommand command) {
-
-        return userRepository.findByUsername(command.getUsername())
+        Mono<Void> usernameCheck = userRepository.findByUsername(command.getUsername())
                 .flatMap(user -> Mono.error(new UserAlreadyExistsException("El nombre de usuario ya existe")))
-                .switchIfEmpty(
-                        userRepository.findByEmail(command.getEmail())
-                                .flatMap(user -> Mono.error(new UserAlreadyExistsException("Este email ya está registrado")))
-                )
                 .then();
+
+        Mono<Void> emailCheck = userRepository.findByEmail(command.getEmail())
+                .flatMap(user -> Mono.error(new UserAlreadyExistsException("Este email ya está registrado")))
+                .then();
+
+        return usernameCheck.then(emailCheck);
     }
+
 }
