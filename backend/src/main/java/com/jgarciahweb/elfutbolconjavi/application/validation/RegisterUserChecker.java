@@ -1,0 +1,21 @@
+package com.jgarciahweb.elfutbolconjavi.application.validation;
+
+import com.jgarciahweb.elfutbolconjavi.application.command.RegisterUserCommand;
+import com.jgarciahweb.elfutbolconjavi.domain.exceptions.UserAlreadyExistsException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import reactor.core.publisher.Mono;
+
+@Component
+@RequiredArgsConstructor
+public class RegisterUserChecker {
+
+    private final UsernameConstraintChecker usernameConstraintChecker;
+    private final EmailConstraintChecker emailConstraintChecker;
+
+    public Mono<RegisterUserCommand> check(RegisterUserCommand command) {
+        return usernameConstraintChecker.check(command)
+                .flatMap(emailConstraintChecker::check);
+    }
+
+}
