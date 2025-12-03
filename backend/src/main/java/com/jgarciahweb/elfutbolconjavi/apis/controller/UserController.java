@@ -46,6 +46,7 @@ public class UserController {
         return Mono.just(request)
                 .map(userApiMapper::toCommand)
                 .flatMap(registerUserCommandHandler::execute)
-                .map(userApiMapper::toResponse);
+                .map(userApiMapper::toResponse)
+                .onErrorResume(ex -> Mono.just(userApiMapper.toErrorResponse(ex.getMessage())));
     }
 }

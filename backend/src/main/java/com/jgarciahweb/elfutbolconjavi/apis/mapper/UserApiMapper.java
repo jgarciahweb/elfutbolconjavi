@@ -7,7 +7,7 @@ import com.jgarciahweb.elfutbolconjavi.apis.dto.RegisterUserResponseDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UserApiMapper {
 
     RegisterUserCommand toCommand(RegisterUserRequestDTO requestDTO);
@@ -16,4 +16,7 @@ public interface UserApiMapper {
     @Mapping(target = "message", constant = "Usuario registrado con éxito")
     RegisterUserResponseDTO toResponse(User user);
 
+    default RegisterUserResponseDTO toErrorResponse(String errorMessage) {
+        return new RegisterUserResponseDTO(false, errorMessage);
+    }
 }
