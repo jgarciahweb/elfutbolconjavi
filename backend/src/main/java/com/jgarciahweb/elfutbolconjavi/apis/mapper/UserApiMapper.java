@@ -7,7 +7,7 @@ import com.jgarciahweb.elfutbolconjavi.apis.dto.RegisterUserResponseDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+@Mapper()
 public interface UserApiMapper {
 
     RegisterUserCommand toCommand(RegisterUserRequestDTO requestDTO);
