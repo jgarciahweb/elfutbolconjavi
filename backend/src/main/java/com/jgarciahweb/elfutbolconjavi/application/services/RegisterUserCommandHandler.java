@@ -6,6 +6,7 @@ import com.jgarciahweb.elfutbolconjavi.domain.mappers.UserMapper;
 import com.jgarciahweb.elfutbolconjavi.domain.model.User;
 import com.jgarciahweb.elfutbolconjavi.domain.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -16,11 +17,18 @@ public class RegisterUserCommandHandler implements CommandHandler<RegisterUserCo
     private final UserRepository userRepository;
     private final RegisterUserChecker registerUserChecker;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public Mono<User> execute(RegisterUserCommand command) {
         return registerUserChecker.check(command)
                 .map(userMapper::toDomain)
+                .map(this::encodePassword)
                 .flatMap(userRepository::save);
+    }
+
+    private User encodePassword(User user) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            return user;
     }
 }
