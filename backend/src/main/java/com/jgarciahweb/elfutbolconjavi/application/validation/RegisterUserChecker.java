@@ -1,7 +1,6 @@
 package com.jgarciahweb.elfutbolconjavi.application.validation;
 
 import com.jgarciahweb.elfutbolconjavi.application.command.RegisterUserCommand;
-import com.jgarciahweb.elfutbolconjavi.domain.exceptions.UserAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
