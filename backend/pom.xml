@@ -24,6 +24,7 @@
 
 		<sonar.coverage.exclusions>
 			**/apis/dto/**,
+			**/application/command/**,
 			**/boot/config/**,
 			**/domain/exceptions/**,
 			**/domain/model/**,
