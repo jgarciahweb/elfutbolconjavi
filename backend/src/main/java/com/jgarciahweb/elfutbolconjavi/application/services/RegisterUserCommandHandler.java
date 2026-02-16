@@ -5,6 +5,7 @@ import com.jgarciahweb.elfutbolconjavi.application.validation.RegisterUserChecke
 import com.jgarciahweb.elfutbolconjavi.domain.mappers.UserMapper;
 import com.jgarciahweb.elfutbolconjavi.domain.model.User;
 import com.jgarciahweb.elfutbolconjavi.domain.repositories.UserRepository;
+import com.jgarciahweb.elfutbolconjavi.infrastructure.services.UserMetricService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,13 +19,15 @@ public class RegisterUserCommandHandler implements CommandHandler<RegisterUserCo
     private final RegisterUserChecker registerUserChecker;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final UserMetricService userMetricService;
 
     @Override
     public Mono<User> execute(RegisterUserCommand command) {
         return registerUserChecker.check(command)
                 .map(userMapper::toDomain)
                 .map(this::encodePassword)
-                .flatMap(userRepository::save);
+                .flatMap(userRepository::save)
+                .doOnSuccess(user -> userMetricService.incrementUserRegistered());
     }
 
     private User encodePassword(User user) {

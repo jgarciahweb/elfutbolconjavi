@@ -5,6 +5,7 @@ import com.jgarciahweb.elfutbolconjavi.application.validation.RegisterUserChecke
 import com.jgarciahweb.elfutbolconjavi.domain.mappers.UserMapper;
 import com.jgarciahweb.elfutbolconjavi.domain.model.User;
 import com.jgarciahweb.elfutbolconjavi.domain.repositories.UserRepository;
+import com.jgarciahweb.elfutbolconjavi.infrastructure.services.UserMetricService;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,6 +34,9 @@ class RegisterUserCommandHandlerTest {
 
     @Mock
     private UserMapper userMapper;
+
+    @Mock
+    private UserMetricService userMetricService;
 
     @Mock
     private PasswordEncoder passwordEncoder;
@@ -80,6 +84,7 @@ class RegisterUserCommandHandlerTest {
         verify(userMapper).toDomain(command);
         verify(passwordEncoder).encode("plain-password");
         verify(userRepository).save(any(User.class));
+        verify(userMetricService).incrementUserRegistered();
     }
 
     @Test
@@ -97,5 +102,6 @@ class RegisterUserCommandHandlerTest {
                 .verify();
 
         verifyNoInteractions(userMapper, userRepository, passwordEncoder);
+        verifyNoInteractions(userMetricService);
     }
 }

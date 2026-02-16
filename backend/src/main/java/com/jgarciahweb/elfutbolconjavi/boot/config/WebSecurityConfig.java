@@ -21,7 +21,7 @@ public class WebSecurityConfig {
                 .cors(cors -> {})
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(auth -> auth
-                        .pathMatchers("/api/register").permitAll()
+                        .pathMatchers("/api/register", "/actuator/prometheus").permitAll()
                         .anyExchange().authenticated()
                 )
                 .build();
