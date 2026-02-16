@@ -21,7 +21,11 @@ public class WebSecurityConfig {
                 .cors(cors -> {})
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(auth -> auth
-                        .pathMatchers("/api/register", "/actuator/prometheus").permitAll()
+                        .pathMatchers("/api/register",
+                                "/actuator/prometheus",
+                                "/swagger-ui.html",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**").permitAll()
                         .anyExchange().authenticated()
                 )
                 .build();
