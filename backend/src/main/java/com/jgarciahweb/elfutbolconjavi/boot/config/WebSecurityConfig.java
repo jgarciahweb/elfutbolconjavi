@@ -20,13 +20,18 @@ public class WebSecurityConfig {
         return http
                 .cors(cors -> {})
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
+                .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
+                .formLogin(ServerHttpSecurity.FormLoginSpec::disable)
                 .authorizeExchange(auth -> auth
                         .pathMatchers("/api/register",
                                 "/actuator/prometheus",
                                 "/swagger-ui.html",
                                 "/swagger-ui/**",
-                                "/v3/api-docs/**").permitAll()
-                        .anyExchange().authenticated()
+                                "/v3/api-docs/**",
+                                "/webjars/**")
+                        .permitAll()
+                        .anyExchange()
+                        .authenticated()
                 )
                 .build();
     }
