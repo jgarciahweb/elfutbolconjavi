@@ -15,13 +15,15 @@ class RegisterUserCheckerTest {
     private UsernameConstraintChecker usernameChecker;
     private EmailConstraintChecker emailChecker;
     private RegisterUserChecker registerUserChecker;
+    private PasswordConstraintChecker passwordChecker;
 
     @BeforeEach
     void setUp() {
         // Arrange
         usernameChecker = mock(UsernameConstraintChecker.class);
         emailChecker = mock(EmailConstraintChecker.class);
-        registerUserChecker = new RegisterUserChecker(usernameChecker, emailChecker);
+        passwordChecker = mock(PasswordConstraintChecker.class);
+        registerUserChecker = new RegisterUserChecker(usernameChecker, emailChecker, passwordChecker);
     }
 
     @Test
@@ -31,6 +33,7 @@ class RegisterUserCheckerTest {
 
         given(usernameChecker.check(command)).willReturn(Mono.just(command));
         given(emailChecker.check(command)).willReturn(Mono.just(command));
+        given(passwordChecker.check(command)).willReturn(Mono.just(command));
 
         // Act
         Mono<RegisterUserCommand> result = registerUserChecker.check(command);
@@ -42,6 +45,7 @@ class RegisterUserCheckerTest {
 
         then(usernameChecker).should().check(command);
         then(emailChecker).should().check(command);
+        then(passwordChecker).should().check(command);
     }
 
     @Test
