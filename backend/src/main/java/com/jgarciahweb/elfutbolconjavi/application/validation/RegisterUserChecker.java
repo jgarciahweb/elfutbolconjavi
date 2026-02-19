@@ -11,10 +11,12 @@ public class RegisterUserChecker {
 
     private final UsernameConstraintChecker usernameConstraintChecker;
     private final EmailConstraintChecker emailConstraintChecker;
+    private final PasswordConstraintChecker passwordConstraintChecker;
 
     public Mono<RegisterUserCommand> check(RegisterUserCommand command) {
         return usernameConstraintChecker.check(command)
-                .flatMap(emailConstraintChecker::check);
+                .flatMap(emailConstraintChecker::check)
+                .flatMap(passwordConstraintChecker::check);
     }
 
 }
