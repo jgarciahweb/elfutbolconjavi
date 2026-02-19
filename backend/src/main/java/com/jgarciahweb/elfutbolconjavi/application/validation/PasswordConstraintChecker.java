@@ -10,11 +10,11 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class PasswordConstraintChecker implements ConstraintChecker<RegisterUserCommand> {
 
-    private static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z\\d])\\S{8,}$";
+    private static final String REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z\\d])\\S{8,}$";
 
     @Override
     public Mono<RegisterUserCommand> check(RegisterUserCommand command) {
-        if (command.getPassword() == null || !command.getPassword().matches(PASSWORD_REGEX)) {
+        if (command.getPassword() == null || !command.getPassword().matches(REGEX)) {
             return Mono.error(new IllegalArgumentException(
                     "La contraseña no cumple todos los requisitos"
             ));
